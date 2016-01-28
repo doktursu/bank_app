@@ -14,8 +14,20 @@ describe('Bank', function(){
   });
 
   it('should be able to create an account, with a unique id', function(){
+    var account = bank.createAccount('Yolanda', 'personal');
+    expect(bank.accounts['1']).to.equal(account);
+  });
+
+  it('should find id by name', function(){
     bank.createAccount('Yolanda', 'personal');
-    expect(bank.accounts.size).to.equal(1);
+    var id = bank.idForName('Yolanda');
+    expect(id).to.equal('2');
+  });
+
+  it('should be find acount by owner name', function(){
+    bank.createAccount('Yolanda', 'personal');
+    var account = bank.findAccount('Yolanda', bank.idForName.bind(bank));
+    expect(account.name).to.equal('Yolanda');
   });
 
 });
